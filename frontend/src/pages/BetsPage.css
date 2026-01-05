@@ -1,0 +1,23 @@
+.betspage-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem;
+    text-align: center;
+}
+
+.team-cell {
+    display: inline-flex;
+    align-items: center;
+}
+
+.date-col {
+    width: 175px;
+}
+
+.match-col {
+    width: 325px;
+}
+
+.bet-col {
+    width: 150px;
+}
