@@ -358,10 +358,12 @@ def fullNameNCAA(name):
         "Incarnate Word": "Incarnate Word Cardinals",
         "Lamar": "Lamar Cardinals",
         "McNeese": "McNeese State Cowboys",
+        "McNeese State": "McNeese State Cowboys",
         "New Orleans": "New Orleans Privateers",
         "Nicholls": "Nicholls Colonels",
         "Nicholls State": "Nicholls Colonels",
         "Northwestern State": "Northwestern State Demons",
+        "Northwestern St.": "Northwestern State Demons",
         "Southeastern Louisiana": "SE Louisiana Lions",
         "SE Louisiana": "SE Louisiana Lions",
         "Stephen F. Austin": "Stephen F. Austin Lumberjacks",
@@ -437,15 +439,23 @@ def fullNameNCAA(name):
 def fullNameSoccer(name):
     fullNames = {
 
+        # international
+        "Côte d'Ivoire": "Ivory Coast",
+
         # England
         "Birmingham": "Birmingham City",
         "Blackburn": "Blackburn Rovers",
+        "Bournemouth": "AFC Bournemouth",
         "Brighton": "Brighton & Hove Albion",
         "Coventry": "Coventry City",
         "Derby": "Derby County",
         "Hull": "Hull City",
         "Ipswich": "Ipswich Town",
+        "Leeds": "Leeds United",
+        "Leicester": "Leicester City",
         "Man City": "Manchester City",
+        "Man Utd": "Manchester United",
+        "Newcastle": "Newcastle United",
         "Norwich": "Norwich City",
         "Nottm Forest": "Nottingham Forest",
         "Oxford": "Oxford United",
@@ -453,8 +463,10 @@ def fullNameSoccer(name):
         "QPR": "Queens Park Rangers",
         "Sheff Utd": "Sheffield United",
         "Sheff Wed": "Sheffield Wednesday",
+        "Spurs": "Tottenham Hotspur",
         "Stoke": "Stoke City",
         "Swansea": "Swansea City",
+        "West Bromwich": "West Bromwich Albion",
         "West Ham": "West Ham United",
         "Wolves": "Wolverhampton Wanderers",
     }

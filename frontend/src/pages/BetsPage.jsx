@@ -76,78 +76,90 @@ function BetsPage() {
                                     position: "relative", 
                                     display: "inline-flex",
                                     alignItems: "center"}}>
-                    <div onMouseEnter={() => setFilterMenuActive(true)}
+                    <span 
+                        onMouseEnter={() => setFilterMenuActive(true)}
                         onMouseLeave={() => setFilterMenuActive(false)}
-                        style={{ position: "relative" }}>
-                        <span 
-                            style={{ padding: "0.5rem 1rem", cursor: "pointer" }}>
-                            Filters
-                        </span>
+                        style={{ padding: "0.5rem 1rem", cursor: "pointer", position: "relative" }}>
+                        Filters
+                    </span>
 
-                        {filterMenuActive && (
-                            <div
-                                style={{
-                                    position: "absolute",
-                                    top: "100%",
-                                    left: 0,
-                                    padding: "1rem",
-                                    background: "#000",
-                                    border: "1px solid #ccc",
-                                    borderRadius: "6px",
-                                    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                                    zIndex: 1000,
-                                    minWidth: "200px"
-                                }}
-                            >
-                                Leagues
-                                <input type="checkbox" /> NBA
-                                <input type="checkbox" /> NFL
-                                <input type="checkbox" /> MLB
-                                <input type="checkbox" /> NCAAF
-                                <input type="checkbox" /> NCAAM
-                            </div>
-                        )}
-
-                        <button
-                            disabled={page === 1}
-                            onClick={() => setPage(p => p - 1)}>
-                            Prev
-                        </button>
-
-                        <span style={{ margin: "0 1rem" }}>
-                            Page {page} of {totalPages}
-                        </span>
-
-                        <button
-                            disabled={page === totalPages}
-                            onClick={() => setPage(p => p + 1)}
+                    {filterMenuActive && (
+                        <div
+                            onMouseEnter={() => setFilterMenuActive(true)}
+                            onMouseLeave={() => setFilterMenuActive(false)}
+                            style={{
+                                position: "absolute",
+                                top: "100%",
+                                left: 0,
+                                padding: "1rem",
+                                background: "#000",
+                                border: "1px solid #ccc",
+                                borderRadius: "6px",
+                                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                                zIndex: 1000,
+                                minWidth: "200px",
+                                textAlign: "left"
+                            }}
                         >
-                            Next
+                            Leagues
+                            <div>
+                                <input type="checkbox" checked/>NBA
+                                <input type="checkbox" checked/>NFL
+                                <input type="checkbox" checked/>MLB
+                            </div>
+                            <div>
+                                <input type="checkbox" checked/>NCAAF
+                                <input type="checkbox" checked/>NCAAM
+                                <input type="checkbox" checked/>NCAAW
+                            </div>
+                            <div>
+                                <input type="checkbox" checked/>EPL
+                                <input type="checkbox" checked/>La Liga
+                                <input type="checkbox" checked/>Bundesliga
+                                <input type="checkbox" checked/>Serie A
+                            </div>
+                        </div>
+                    )}
+
+                    <button
+                        disabled={page === 1}
+                        onClick={() => setPage(p => p - 1)}>
+                        Prev
+                    </button>
+
+                    <span style={{ margin: "0 1rem" }}>
+                        Page {page} of {totalPages}
+                    </span>
+
+                    <button
+                        disabled={page === totalPages}
+                        onClick={() => setPage(p => p + 1)}
+                    >
+                        Next
+                    </button>
+
+
+
+                    <span style={{ paddingLeft: "1rem", paddingRight: "1rem" }}>
+                        Go to Page
+                        <input
+                            type="number"
+                            value={draftPage}
+                            min={1}
+                            max={totalPages}
+                            onChange={e => setDraftPage(Number(e.target.value))}
+                            onKeyDown={e => {
+                            if (e.key === "Enter") {
+                                commitPage();
+                            }
+                            }}
+                            style={{ marginLeft: "1rem", marginRight: "1rem" }}
+                        />
+
+                        <button onClick={commitPage}>
+                            Go
                         </button>
-
-
-
-                        <span style={{ paddingLeft: "1rem", paddingRight: "1rem" }}>
-                            Go to Page
-                            <input
-                                type="number"
-                                value={draftPage}
-                                min={1}
-                                max={totalPages}
-                                onChange={e => setDraftPage(Number(e.target.value))}
-                                onKeyDown={e => {
-                                if (e.key === "Enter") {
-                                    commitPage();
-                                }
-                                }}
-                                style={{ marginLeft: "1rem", marginRight: "1rem" }}
-                            />
-
-                            <button onClick={commitPage}>
-                                Go
-                            </button>
-                        </span>
-                    </div>
+                    </span>
                 </div>
 
                 
@@ -235,10 +247,12 @@ function BetsPage() {
                             </tbody>
                         </table>
                     )}
+
+                <p>
+                    Created by Kevin Lim
+                </p>
             </div>
-            <p>
-                Created by Kevin Lim
-            </p>
+            
         </>
     )
 }

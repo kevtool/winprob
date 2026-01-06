@@ -474,7 +474,7 @@ export const teamAbbreviations = {
     "Northwestern State Demons": "Northwestern State",
     "SE Louisiana Lions": "SE Louisiana",
     "Stephen F. Austin Lumberjacks": "Stephen F. Austin",
-    "Texas A&M-Corpus Christi Islanders": "Texas A&M-Corpus Christi",
+    "Texas A&M-Corpus Christi Islanders": "Texas A&M-CC",
     "UT Rio Grande Valley Vaqueros": "UT RGV",
 
     // Summit
@@ -514,7 +514,7 @@ export const teamAbbreviations = {
     "Florida A&M Rattlers": "Florida A&M",
     "Grambling State Tigers": "Grambling State",
     "Jackson State Tigers": "Jackson State",
-    "Mississippi Valley State Delta Devils": "Mississippi Valley State",
+    "Mississippi Valley State Delta Devils": "MS Valley State",
     "Prairie View A&M Panthers": "Prairie View A&M",
     "Southern Jaguars": "Southern",
     "Texas Southern Tigers": "Texas Southern",
@@ -645,9 +645,13 @@ export const teamLogos = {
 
     // Soccer
     // international
+    "Algeria": "src/assets/teamLogos/Soccer/International/Algeria.png",
     "Benin": "src/assets/teamLogos/Soccer/International/Benin.png",
+    "Burkina Faso": "src/assets/teamLogos/Soccer/International/Burkina_Faso.png",
     "Cameroon": "src/assets/teamLogos/Soccer/International/Cameroon.png",
+    "Congo DR": "src/assets/teamLogos/Soccer/International/DR_Congo.png",
     "Egypt": "src/assets/teamLogos/Soccer/International/Egypt.png",
+    "Ivory Coast": "src/assets/teamLogos/Soccer/International/Ivory_Coast.png",
     "Mali": "src/assets/teamLogos/Soccer/International/Mali.png",
     "Morocco": "src/assets/teamLogos/Soccer/International/Morocco.png",
     "Mozambique": "src/assets/teamLogos/Soccer/International/Mozambique.png",
@@ -1071,6 +1075,7 @@ export const teamLogos = {
     "East Texas A&M Lions": "src/assets/teamLogos/NCAA/East_Texas_AM_Lions.png",
     "Houston Christian Huskies": "src/assets/teamLogos/NCAA/Houston_Christian_Huskies.png",
     "Incarnate Word Cardinals": "src/assets/teamLogos/NCAA/Incarnate_Word_Cardinals.png",
+    "Lamar Cardinals": "src/assets/teamLogos/NCAA/Lamar_Cardinals.png",
     "McNeese Cowboys": "src/assets/teamLogos/NCAA/McNeese_Cowboys.png",
     "New Orleans Privateers": "src/assets/teamLogos/NCAA/New_Orleans_Privateers.png",
     "Nicholls Colonels": "src/assets/teamLogos/NCAA/Nicholls_Colonels.png",

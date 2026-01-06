@@ -120,7 +120,7 @@ def create_ncaaf_entry(game_ids: list[str]=None):
 
     if not game_ids:
         # step 1: scrape espn for a certain dates' game ids
-        game_ids = get_game_ids(sport=league, date="20251214")
+        game_ids = get_game_ids(sport=league, date="20251210-20260105")
     else:
         assert isinstance(game_ids, list), "game_ids must be a list of strings"
 
@@ -220,7 +220,7 @@ def create_ncaab_entry():
     league = "mens-college-basketball"
 
     # step 1: scrape espn for a certain dates' game ids
-    game_ids = get_game_ids(sport=league, date="20260104")
+    game_ids = get_game_ids(sport=league, date="20260105")
 
     # step 2: get dictionary of espn game data for each game id
     matches_list = []
@@ -230,7 +230,8 @@ def create_ncaab_entry():
         matches_list.append(summary)
 
     # step 3: scrape oddsportal for betting odds for each game
-    ids = get_links("https://www.oddsportal.com/basketball/usa/ncaa/results/#/page/2/")
+    ids = get_links("https://www.oddsportal.com/basketball/usa/ncaa/results/")
+    # ids = get_links("https://www.oddsportal.com/basketball/usa/ncaa/results/#/page/2/")
 
     
 
@@ -497,6 +498,11 @@ def get_soccer_result(event_id, league):
         
     game['date'] = event_data["header"]["competitions"][0]["date"]
 
+    extra_time = False
+    if event_data["header"]["competitions"][0]["status"]["type"]["detail"] in ["AET", "FT-Pens"]:
+        extra_time = True
+        game['extra_time'] = True
+
     # odds
     odds_url = f"https://sports.core.api.espn.com/v2/sports/{sport}/leagues/{league}/events/{event_id}/competitions/{event_id}/odds"
     odds_response = requests.get(odds_url)
@@ -532,8 +538,8 @@ def get_soccer_result(event_id, league):
             game['bet']["winProb"] = game["Opta"]["team_1"].get("winPct", -0.1)
             game['bet']["EV"] = (game['bet']["winProb"] * game['bet']["line"]) - 1
             game['bet']["EW"] = game['bet']["winProb"]
-            game['bet']["result"] = "W" if int(game.get("team_1_score", 0)) > int(game.get("team_2_score", 0)) else "L"
-            game['bet']["actual_value"] = game['bet']["line"] - 1 if int(game.get("team_1_score", 0)) > int(game.get("team_2_score", 0)) else -1
+            game['bet']["result"] = "W" if int(game.get("team_1_score", 0)) > int(game.get("team_2_score", 0)) and (not extra_time) else "L"
+            game['bet']["actual_value"] = game['bet']["line"] - 1 if int(game.get("team_1_score", 0)) > int(game.get("team_2_score", 0)) and (not extra_time) else -1
 
         elif implied_odds_2 < float(game["Opta"]["team_2"].get("winPct", -0.1)):
             game['bet']["team"] = game["team_2"]
@@ -542,8 +548,8 @@ def get_soccer_result(event_id, league):
             game['bet']["winProb"] = game["Opta"]["team_2"].get("winPct", -0.1)
             game['bet']["EV"] = (game['bet']["winProb"] * game['bet']["line"]) - 1
             game['bet']["EW"] = game['bet']["winProb"]
-            game['bet']["result"] = "W" if int(game.get("team_2_score", 0)) > int(game.get("team_1_score", 0)) else "L"
-            game['bet']["actual_value"] = game['bet']["line"] - 1 if int(game.get("team_2_score", 0)) > int(game.get("team_1_score", 0)) else -1
+            game['bet']["result"] = "W" if int(game.get("team_2_score", 0)) > int(game.get("team_1_score", 0)) and (not extra_time) else "L"
+            game['bet']["actual_value"] = game['bet']["line"] - 1 if int(game.get("team_2_score", 0)) > int(game.get("team_1_score", 0)) and (not extra_time) else -1
 
         elif implied_odds_draw < float(game["Opta"].get("drawPct", -0.1)):
             game['bet']["team"] = "Draw"
@@ -552,8 +558,8 @@ def get_soccer_result(event_id, league):
             game['bet']["winProb"] = game["Opta"].get("drawPct", -0.1)
             game['bet']["EV"] = (game['bet']["winProb"] * game['bet']["line"]) - 1
             game['bet']["EW"] = game['bet']["winProb"]
-            game['bet']["result"] = "W" if int(game.get("team_1_score", 0)) == int(game.get("team_2_score", 0)) else "L"
-            game['bet']["actual_value"] = game['bet']["line"] - 1 if int(game.get("team_1_score", 0)) == int(game.get("team_2_score", 0)) else -1
+            game['bet']["result"] = "W" if int(game.get("team_1_score", 0)) == int(game.get("team_2_score", 0)) or extra_time else "L"
+            game['bet']["actual_value"] = game['bet']["line"] - 1 if int(game.get("team_1_score", 0)) == int(game.get("team_2_score", 0)) or extra_time else -1
 
         else:
             game['bet']["team"] = "No Bet"
@@ -678,7 +684,7 @@ if __name__ == "__main__":
     #     matches_list.append(summary)
 
     # sport = "basketball/nba"
-    # for event_id in get_events(sport, "20260103-20260104"):
+    # for event_id in get_events(sport, "20260105"):
     #     print(f'Processing event {event_id}')
     #     summary = get_nba_result(event_id)
     #     matches_list.append(summary)
@@ -691,24 +697,24 @@ if __name__ == "__main__":
 
     # create_matches(matches_list)
 
-    # create_ncaaf_entry()
-    create_ncaab_entry()
+    #create_ncaaf_entry()
+    # create_ncaab_entry()
     # create_ncaaw_entry()
 
 
-    # record_soccer_winprob("eng.2", "english-championship", espn_date_range = "20260106", click=True)
+    # record_soccer_winprob("eng.1", "premier-league", espn_date_range = "20260107", click=True)
 
 
-    # sport = "soccer"
-    # league = "ita.1"
-    # for event_id in get_events(f"{sport}/{league}", "20260103"):
-    #     print(f'Processing event {event_id}')
-    #     try:
-    #         summary = get_soccer_result(event_id, league)
-    #         matches_list.append(summary)
-    #     except (KeyError, TypeError) as e:
-    #         print(f"Skipping event {event_id} due to missing data: {e}")
-    # create_matches(matches_list)
+    sport = "soccer"
+    league = "caf.nations"
+    for event_id in get_events(f"{sport}/{league}", "20260103-20260105"):
+        print(f'Processing event {event_id}')
+        try:
+            summary = get_soccer_result(event_id, league)
+            matches_list.append(summary)
+        except (KeyError, TypeError) as e:
+            print(f"Skipping event {event_id} due to missing data: {e}")
+    create_matches(matches_list)
 
     # get_soccer_result(740789, league)
     
